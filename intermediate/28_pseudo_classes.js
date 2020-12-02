@@ -1,11 +1,8 @@
-var Car = function () {
-  this.doors = 4;
-  this.wheels = 4;
-  //   return this;
-};
-
-// var car = Car();
-var car = new Car();
-
-console.log(car);
-console.log(this);
+function Pet(name) {
+  this.name = name;
+}
+function Dog(name) {
+  Pet.call(this, name);
+}
+var rudy = new Dog('Rudy');
+console.log(rudy.name);

@@ -1,20 +1,26 @@
-function Pet(name, age) {
+function Pet(name) {
   this.name = name;
-  this.age = age;
-  this.makeNoise = function () {
-    return 'Roar!!!';
-  };
+  this.sound = 'Roar!!!';
+  // this.makeSound = function () {
+  //   return this.sound;
+  // };
+}
+Pet.prototype.makeSound = function () {
+  return this.sound;
+};
+
+function Dog(name) {
+  Pet.call(this, name);
 }
 
-// Pet.prototype.makeNoise = function () {
-//   return 'Roar!!!';
-// };
+// Dog.prototype = Object.create(Pet.prototype);
+// Dog.prototype.constructor = Dog;
+Object.setPrototypeOf(Dog.prototype, Pet.prototype);
+console.log(Dog.prototype.constructor);
+var rudy = new Dog('Rudy');
+console.log(rudy.name);
+console.log(rudy.makeSound());
+var sparky = new Dog('Sparky');
+console.log(sparky.makeSound());
 
-var fido = new Pet('Fido', 3);
-console.log(fido);
-console.log(fido.makeNoise());
-
-var spot = new Pet('Spot', 3);
-console.log(spot.makeNoise());
-
-console.log(spot.makeNoise === fido.makeNoise);
+console.log(rudy.makeSound === sparky.makeSound);

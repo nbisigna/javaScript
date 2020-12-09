@@ -1,3 +1,20 @@
+// // console.log(process.argv);
+// var args = process.argv.slice(2);
+// // console.log(args);
+// var height = Number(args[0]) || 5;
+// var width = 2 * height - 1;
+// var half = Math.floor(width / 2);
+// var stump = '';
+// for (var i = 0; i < height; i++) {
+//   var str = '';
+//   for (var j = 0; j < half - i; j++) str += ' ';
+//   for (var j = 0; j < i * 2 - 1; j++) str += '*';
+//   for (var j = 0; j < half - i; j++) str += ' ';
+//   if (i == Math.floor(height / 3)) stump += str;
+//   console.log(str);
+// }
+// console.log(stump);
+
 // console.log(process.argv);
 let args = process.argv.slice(2);
 // console.log(args);
@@ -21,6 +38,7 @@ var Crimson = '\x1b[38m';
 var Normal = '\x1b[0m';
 var color = [Red, Green, Yellow, Blue, Magenta, Cyan, White, Crimson, Nothing];
 var effect = [Bright, Dim, Blink, Nothing];
+
 for (var i = 0; i < height; i++) {
   var str = [];
   for (var j = 0; j < half - i; j++) {

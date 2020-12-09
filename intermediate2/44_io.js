@@ -1,46 +1,38 @@
-var ans = Math.floor(Math.random() * 10) + 1;
-var guesses = 3;
 function prompt(question, callback) {
   process.stdout.write(question);
   process.stdin.once('data', function (data) {
     callback(data.toString().trim());
   });
 }
-
-var handler = (guess) => {
-  try {
-    guess = Number(guess);
-    if (guess === ans) {
-      prompt('Correct!\nPlay again? Yes or No?\n', reset);
-    } else if (guess < 1 || guess > 10) {
-      prompt(
-        'Guess was out of range. You have ' + guesses + ' guesses left.\n',
-        handler
-      );
-    } else if (guess < ans || guess > ans) {
-      if (--guesses <= 0) {
-        prompt(
-          'You Lose! The answer was ' + ans + '!\nPlay again? Yes or No?\n',
-          reset
-        );
+var answer = Math.floor(Math.random() * 10) + 1;
+var guesses = 3;
+function Game() {
+  prompt(
+    'You have ' + guesses + ' guesses. Guess a number from 1 to 10:\n',
+    function (guess) {
+      if (guess == answer) {
+        guesses = 3;
+        prompt('Correct! Play again? Y/n\n', reset);
       } else {
-        prompt('Wrong. You have ' + guesses + ' guesses left.\n', handler);
+        guesses--;
+        if (guesses <= 0) {
+          guesses = 3;
+          prompt('Wrong! Play again? Y/n\n', reset);
+        } else {
+          process.stdout.write('Wrong! Guess again!\n');
+          Game();
+        }
       }
     }
-  } catch (err) {
-    prompt('Please enter a valid number.\n', handler);
-  }
-};
-
-var reset = (res) => {
-  if (String(res[0]).toLowerCase() == 'y') {
-    guesses = 3;
-    ans = Math.floor(Math.random() * 10) + 1;
-    prompt('Guess a number from one to ten. You have 3 guesses.\n', handler);
+  );
+}
+function reset(str) {
+  if (String(str)[0].toLowerCase() == 'y') {
+    Game();
   } else {
-    console.log('Thank you for playing!');
+    process.stdout.write('Thank you for playing!\n');
     process.exit(0);
   }
-};
+}
 
-prompt('Guess a number from one to ten. You have 3 guesses.\n', handler);
+Game();

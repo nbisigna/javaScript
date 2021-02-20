@@ -1,5 +1,9 @@
-/advanced/*
+.DS_Store
+.git
+.gitignore
 /advanced2/*
+/advanced3/*
+/algorithms/*
 /data_structures/*
 /node/*
 /react/*
